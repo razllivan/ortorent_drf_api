@@ -49,7 +49,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'ortorent_drf_api.urls'
+ROOT_URLCONF = 'ortorent_drf.urls'
 
 TEMPLATES = [
     {
