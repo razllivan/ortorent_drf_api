@@ -7,6 +7,9 @@ ENV PYTHONUNBUFFERED 1
 
 WORKDIR $DJANGO_HOME
 
+# create the app user
+RUN addgroup -S app && adduser -S app -G app
+
 # install psycopg2 dependencies
 RUN apk update \
     && apk add postgresql-dev gcc python3-dev musl-dev
@@ -23,6 +26,12 @@ COPY . .
 COPY entrypoint.sh ./
 RUN sed -i 's/\r$//g' $DJANGO_HOME/entrypoint.sh
 RUN chmod +x $DJANGO_HOME/entrypoint.sh
+
+# chown all the files to the app user
+RUN chown -R app:app $DJANGO_HOME
+
+# change to the app user
+USER app
 
 # run entrypoint.sh
 ENTRYPOINT ["/bin/sh" ,"-c", "${DJANGO_HOME}/entrypoint.sh"]
