@@ -2,7 +2,8 @@ version: '3'
 
 services:
     django:
-        build: .
+        build:
+          context: ./django_api
         ports:
           - "8000:8000"
         depends_on:
