@@ -1,9 +1,12 @@
 FROM python:3.11-alpine
 
-WORKDIR /project
-
+ENV HOME /home/app
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
+
+WORKDIR $HOME
+
+
 
 # install psycopg2 dependencies
 RUN apk update \
@@ -19,8 +22,8 @@ COPY . .
 
 # copy entrypoint.sh
 COPY entrypoint.sh ./
-RUN sed -i 's/\r$//g' /project/entrypoint.sh
-RUN chmod +x /project/entrypoint.sh
+RUN sed -i 's/\r$//g' $HOME/entrypoint.sh
+RUN chmod +x $HOME/entrypoint.sh
 
 # run entrypoint.sh
-ENTRYPOINT ["/project/entrypoint.sh"]
+ENTRYPOINT ["/bin/sh" ,"-c", "${HOME}/entrypoint.sh"]
