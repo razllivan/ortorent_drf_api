@@ -1,12 +1,11 @@
 FROM python:3.11-alpine
 
 ENV HOME /home/app
+ENV DJANGO_HOME /home/app/django_api
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 
-WORKDIR $HOME
-
-
+WORKDIR $DJANGO_HOME
 
 # install psycopg2 dependencies
 RUN apk update \
@@ -22,8 +21,8 @@ COPY . .
 
 # copy entrypoint.sh
 COPY entrypoint.sh ./
-RUN sed -i 's/\r$//g' $HOME/entrypoint.sh
-RUN chmod +x $HOME/entrypoint.sh
+RUN sed -i 's/\r$//g' $DJANGO_HOME/entrypoint.sh
+RUN chmod +x $DJANGO_HOME/entrypoint.sh
 
 # run entrypoint.sh
-ENTRYPOINT ["/bin/sh" ,"-c", "${HOME}/entrypoint.sh"]
+ENTRYPOINT ["/bin/sh" ,"-c", "${DJANGO_HOME}/entrypoint.sh"]
