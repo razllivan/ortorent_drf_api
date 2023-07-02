@@ -22,16 +22,9 @@ RUN pip install -r requirements.txt
 # copy project
 COPY . .
 
-# copy entrypoint.sh
-COPY entrypoint.sh ./
-RUN sed -i 's/\r$//g' $DJANGO_HOME/entrypoint.sh
-RUN chmod +x $DJANGO_HOME/entrypoint.sh
-
 # chown all the files to the app user
 RUN chown -R app:app $DJANGO_HOME
 
 # change to the app user
 USER app
 
-# run entrypoint.sh
-ENTRYPOINT ["/bin/sh" ,"-c", "${DJANGO_HOME}/entrypoint.sh"]
