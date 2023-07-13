@@ -3,7 +3,7 @@ version: '3'
 services:
     django:
         build:
-          context: ./django_api
+          context: .
           args:
             - DEV=true
         command: >

@@ -27,7 +27,7 @@ RUN pip install -r requirements.txt && \
     fi
 
 # copy project
-COPY . .
+COPY ./django_api .
 
 # chown all the files to the app user
 RUN chown -R app:app $DJANGO_HOME
