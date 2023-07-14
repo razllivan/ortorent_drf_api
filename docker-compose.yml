@@ -12,6 +12,8 @@ services:
                  python manage.py runserver 0.0.0.0:8000"
         ports:
           - "8000:8000"
+        volumes:
+          - ./django_api:/home/app/django_api
         depends_on:
           - db
         env_file:
