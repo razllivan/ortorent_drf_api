@@ -3,3 +3,11 @@ repos:
     rev: 6.0.0
     hooks:
       - id: flake8
+        name: flake8
+        args: [--config=django_api/.flake8]
+        exclude: |
+          (?x)(
+              migrations/.*|
+              manage.py|
+              settings.py
+          )$
